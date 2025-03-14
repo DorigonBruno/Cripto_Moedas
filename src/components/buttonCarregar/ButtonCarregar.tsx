@@ -1,7 +1,9 @@
+
+
 const ButtonCarregar = () => {
-  function handleGetMore() {
-    alert("tste");
-  }
+  
+
+  function handleGetMore() {}
 
   return (
     <div className="flex justify-center">
