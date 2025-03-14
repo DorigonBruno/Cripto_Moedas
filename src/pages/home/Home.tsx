@@ -15,9 +15,9 @@ const Home = () => {
         </button>
       </form>
 
-      <table className="border-spacing-x-4 m-0 p-0 w-full table-fixed">
+      <table className="border-spacing-x-4 mt-6 max-w-6xl m-auto table-fixed w-full">
         <thead>
-          <tr className="text-white">
+          <tr className="hidden md:table-row text-white text-sm md:text-md lg:text-lg">
             <th scope="col" className="p-3 text-center">
               Moeda
             </th>
@@ -37,41 +37,41 @@ const Home = () => {
         </thead>
 
         <tbody>
-          <tr className="bg-gray-700">
+          <tr className="bg-gray-700 text-sm md:text-md lg:text-lg border-b-1 border-solid md:border-gray-100 text-white">
             <td
-              className="before:content-[attr(data-label))] md:before:content-none rounded-tl-md rounded-bl-md p-3 text-center"
+              className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
               data-label="Moeda"
             >
               <div>
                 <Link to="/detail/bitcoin">
-                  <span>Bitcoin | BTC</span>
+                  <span>Bitcoin </span> | BTC
                 </Link>
               </div>
             </td>
 
             <td
-              className="before:content-[attr(data-label))] md:before:content-none p-3 text-center"
+              className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
               data-label="valor mercado"
             >
               1T
             </td>
 
             <td
-              className="before:content-[attr(data-label))] md:before:content-none p-3 text-center"
+              className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
               data-label="preco"
             >
               8.000
             </td>
 
             <td
-              className="before:content-[attr(data-label))] md:before:content-none p-3 text-center"
+              className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
               data-label="Volume"
             >
               2B
             </td>
 
             <td
-              className="before:content-[attr(data-label))] md:before:content-none rounded-tr-md rounded-br-md p-3 text-center"
+              className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full"
               data-label="Mudança 24hrs"
             >
               <span>1.20</span>
