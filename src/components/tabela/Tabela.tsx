@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import ButtonCarregar from "../buttonCarregar/ButtonCarregar";
 
-type coinProps = {
+export type coinProps = {
   id: string;
   name: string;
   symbol: string;
@@ -25,41 +26,41 @@ type DataProps = {
 
 const Tabela = () => {
   const [coins, setCoins] = useState<coinProps[]>([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    getData();
-  }, []);
+    async function getData(offset: number) {
+      fetch(`https://api.coincap.io/v2/assets?limit=10&offset=${offset}`)
+        .then((resp) => resp.json())
+        .then((data: DataProps) => {
+          const dataResult = data.data;
 
-  async function getData() {
-    fetch("https://api.coincap.io/v2/assets?limit=10&offset=0")
-      .then((resp) => resp.json())
-      .then((data: DataProps) => {
-        const dataResult = data.data;
+          const price = Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          });
 
-        const price = Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
+          const priceCompact = Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            notation: "compact",
+          });
+
+          const result = dataResult.map((item) => {
+            const resultFormated = {
+              ...item,
+              formatedPrice: price.format(+item.priceUsd),
+              formatedMarket: priceCompact.format(+item.marketCapUsd),
+              formatedVolume: priceCompact.format(+item.volumeUsd24Hr),
+            };
+            return resultFormated;
+          });
+
+          setCoins((prevCoins) => [...prevCoins, ...result]);
         });
-
-        const priceCompact = Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          notation: "compact",
-        });
-
-        const result = dataResult.map((item) => {
-          const resultFormated = {
-            ...item,
-            formatedPrice: price.format(+item.priceUsd),
-            formatedMarket: priceCompact.format(+item.marketCapUsd),
-            formatedVolume: priceCompact.format(+item.volumeUsd24Hr),
-          };
-          return resultFormated;
-        });
-
-        setCoins(result);
-      });
-  }
+    }
+    getData(offset);
+  }, [offset]);
 
   return (
     <table className="border-spacing-y-2 border-separate mt-3 max-w-6xl m-auto table-fixed w-full">
@@ -118,7 +119,7 @@ const Tabela = () => {
 
               <td
                 className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
-                data-label="preco"
+                data-label="Preço"
               >
                 {item.formatedPrice}
               </td>
@@ -131,7 +132,8 @@ const Tabela = () => {
               </td>
 
               <td
-                className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full md:rounded-tr-lg md:rounded-br-lg"
+                className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full md:rounded-tr-lg md:rounded-br-lg
+                "
                 data-label="Mudança 24hrs"
               >
                 <span
@@ -147,6 +149,10 @@ const Tabela = () => {
             </tr>
           ))}
       </tbody>
+
+      <div className="flex">
+        <ButtonCarregar offset={offset} setOffset={setOffset} />
+      </div>
     </table>
   );
 };
