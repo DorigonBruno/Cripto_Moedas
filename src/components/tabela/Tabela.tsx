@@ -16,7 +16,7 @@ type coinProps = {
   explorer: string;
   volumeUsd24Hr: string;
   formatedPrice?: string;
-  formatedMarke?: string;
+  formatedMarket?: string;
   formatedVolume?: string;
 };
 
@@ -63,7 +63,7 @@ const Tabela = () => {
   }
 
   return (
-    <table className="border-spacing-x-4 mt-6 max-w-6xl m-auto table-fixed w-full">
+    <table className="border-spacing-y-2 border-separate mt-3 max-w-6xl m-auto table-fixed w-full">
       <thead>
         <tr className="hidden md:table-row text-white text-sm md:text-md lg:text-lg">
           <th scope="col" className="p-3 text-center">
@@ -85,53 +85,55 @@ const Tabela = () => {
       </thead>
 
       <tbody>
-        {coins.length > 0
-          ? coins.map((item) => (
-              <tr
-                className="bg-gray-700 text-sm md:text-md lg:text-lg border-b-1 border-solid md:border-gray-100 text-white"
-                key={item.id}
+        {coins.length > 0 &&
+          coins.map((item) => (
+            <tr
+              className="bg-gray-700 text-sm md:text-md lg:text-lg border-b-1 border-solid md:border-gray-100 text-white"
+              key={item.id}
+            >
+              <td
+                className="md:table-cell p-3 text-center font-bold flex justify-between items-center  relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none md:rounded-tl-lg md:rounded-bl-lg "
+                data-label="Moeda"
               >
-                <td
-                  className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
-                  data-label="Moeda"
-                >
-                  <div>
-                    <Link to="/detail/bitcoin">
-                      <span>Bitcoin </span> | BTC
-                    </Link>
-                  </div>
-                </td>
+                <div>
+                  <Link
+                    to={`/detail/${item.id}`}
+                    className="hover:text-teal-400 transition duration-200 ease-in-out"
+                  >
+                    <span>{item.name}</span> | {item.symbol}
+                  </Link>
+                </div>
+              </td>
 
-                <td
-                  className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
-                  data-label="valor mercado"
-                >
-                  1T
-                </td>
+              <td
+                className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
+                data-label="valor mercado"
+              >
+                {item.formatedMarket}
+              </td>
 
-                <td
-                  className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
-                  data-label="preco"
-                >
-                  8.000
-                </td>
+              <td
+                className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
+                data-label="preco"
+              >
+                {item.formatedPrice}
+              </td>
 
-                <td
-                  className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
-                  data-label="Volume"
-                >
-                  2B
-                </td>
+              <td
+                className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none"
+                data-label="Volume"
+              >
+                {item.formatedVolume}
+              </td>
 
-                <td
-                  className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full"
-                  data-label="Mudança 24hrs"
-                >
-                  <span>1.20</span>
-                </td>
-              </tr>
-            ))
-          : null}
+              <td
+                className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full md:rounded-tr-lg md:rounded-br-lg"
+                data-label="Mudança 24hrs"
+              >
+                <span>1.20</span>
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

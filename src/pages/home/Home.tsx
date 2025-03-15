@@ -4,7 +4,7 @@ import ButtonCarregar from "../../components/buttonCarregar/ButtonCarregar";
 
 const Home = () => {
   return (
-    <main className="bg-gray-800 w-full h-screen px-2">
+    <main className="bg-gray-800 w-full h-full px-2">
       <Form />
       <Tabela />
       <ButtonCarregar />
