@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { Link } from "react-router";
 
 type coinProps = {
@@ -88,14 +87,19 @@ const Tabela = () => {
         {coins.length > 0 &&
           coins.map((item) => (
             <tr
-              className="bg-gray-700 text-sm md:text-md lg:text-lg border-b-1 border-solid md:border-gray-100 text-white"
+              className="bg-slate-700 text-sm md:text-md lg:text-lg border-b-1 border-solid md:border-gray-100 text-white md:hover:bg-slate-500 transition duration-200 ease-in-out"
               key={item.id}
             >
               <td
                 className="md:table-cell p-3 text-center font-bold flex justify-between items-center  relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full border-b-2 border-gray-100 md:border-none md:rounded-tl-lg md:rounded-bl-lg "
                 data-label="Moeda"
               >
-                <div>
+                <div className="flex gap-2 items-center">
+                  <img
+                    src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`}
+                    alt="logoCript"
+                    className="w-5 h-5 transition-all duration-300  hover:scale-150 z-50"
+                  />
                   <Link
                     to={`/detail/${item.id}`}
                     className="hover:text-teal-400 transition duration-200 ease-in-out"
@@ -130,7 +134,15 @@ const Tabela = () => {
                 className="p-3 text-center font-bold flex justify-between items-center md:table-cell relative before:content-[attr(data-label)] before:text-gray-400 md:before:content-none before:text-sm w-full md:rounded-tr-lg md:rounded-br-lg"
                 data-label="Mudança 24hrs"
               >
-                <span>1.20</span>
+                <span
+                  className={`${
+                    +item.changePercent24Hr > 0
+                      ? "text-green-400"
+                      : "text-red-600"
+                  }`}
+                >
+                  {Number(item.changePercent24Hr).toFixed(3)}
+                </span>
               </td>
             </tr>
           ))}

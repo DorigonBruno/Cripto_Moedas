@@ -8,7 +8,7 @@ const Header = () => {
         <img
           src={LogoImg}
           alt="Logo cripto App"
-          className="block mt-6 object-cover px-2"
+          className="block mt-6 object-cover"
         />
       </Link>
     </header>
