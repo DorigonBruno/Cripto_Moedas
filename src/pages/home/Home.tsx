@@ -6,6 +6,7 @@ const Home = () => {
     <main className="bg-gray-800 w-full h-full px-2">
       <Form />
       <Tabela />
+      
     </main>
   );
 };
